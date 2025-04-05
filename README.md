@@ -16,4 +16,11 @@ Paddle Up is a full-stack event scheduling platform for pickleball events in the
    git clone https://github.com/codedova/PaddleUp.git
    cd PaddleUp
 
-2.
+2. **Create and Activate Environment:**
+
+    python3 -m venv venv
+    source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+3. **Install Dependencies:**
+
+    pip install -r requirements.txt
