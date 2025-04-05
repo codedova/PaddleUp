@@ -22,19 +22,4 @@
 - Requests
 - python-dotenv
 
-## Installation
-
-1. **Clone the Repository:**
-
-   git clone https://github.com/codedova/crypto_dashboard.git
-   cd crypto_dashboard
-
-2. **Create and Activate a Virtual Environment:**
-
-    python3 -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-3. **Install Dependencies:**
-
-    pip install flask flask_sqlalchemy requests python-dotenv
 
