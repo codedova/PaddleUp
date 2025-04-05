@@ -11,21 +11,21 @@ Paddle Up is a full-stack event scheduling platform for pickleball events in the
 
 ## Installation
 
-1. Clone the Repository:
+Clone the Repository:
 
    git clone https://github.com/codedova/PaddleUp.git
    cd PaddleUp
 
-2. Create and Activate Environment:
+Create and Activate Environment:
 
     python3 -m venv venv
     source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-3. Install Dependencies:
+Install Dependencies:
 
     pip install -r requirements.txt
 
-4. Set Up Environment Variables:
+Set Up Environment Variables:
 
 Create a .env file in the project root with the following content:
 
