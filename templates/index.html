@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paddle Up - Pickleball Events</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: auto;
+      }
+      h1 {
+        text-align: center;
+      }
+      form {
+        margin-bottom: 30px;
+        padding: 20px;
+        border: 1px solid #ccc;
+      }
+      input, textarea {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+        box-sizing: border-box;
+      }
+      button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+      .results {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Paddle Up - Pickleball Events</h1>
+
+      <!-- Event Creation Form -->
+      <h2>Create a New Event</h2>
+      <form id="eventForm">
+        <label for="title">Event Title:</label>
+        <input type="text" id="title" name="title" required>
+        
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea>
+        
+        <label for="event_date">Event Date (YYYY-MM-DD HH:MM):</label>
+        <input type="text" id="event_date" name="event_date" placeholder="2024-05-15 18:30" required>
+        
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" required>
+        
+        <button type="submit">Create Event</button>
+      </form>
+
+      <!-- Location Search Form -->
+      <h2>Search for Pickleball Courts</h2>
+      <form id="locationForm">
+        <label for="locationQuery">Search Query:</label>
+        <input type="text" id="locationQuery" name="locationQuery" placeholder="pickleball court bay area" required>
+        <button type="submit">Search Locations</button>
+      </form>
+      <div id="locationResults" class="results"></div>
+
+      <!-- Events List -->
+      <h2>All Events</h2>
+      <div id="eventsList" class="results"></div>
+    </div>
+
+    <script>
+      // Function to create an event
+      document.getElementById('eventForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+        const event_date = document.getElementById('event_date').value;
+        const location = document.getElementById('location').value;
+        const data = { title, description, event_date, location };
+
+        const response = await fetch('/api/events', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await response.json();
+        alert(result.message || result.error);
+        loadEvents();  // Refresh the events list
+      });
+
+      // Function to load events from the API
+      async function loadEvents() {
+        const response = await fetch('/api/events');
+        const events = await response.json();
+        const eventsListDiv = document.getElementById('eventsList');
+        if (events.length === 0) {
+          eventsListDiv.innerHTML = "<p>No events found.</p>";
+        } else {
+          let html = "<ul>";
+          events.forEach(event => {
+            html += `<li><strong>${event.title}</strong> on ${event.event_date} at ${event.location}</li>`;
+          });
+          html += "</ul>";
+          eventsListDiv.innerHTML = html;
+        }
+      }
+
+      // Function to search for locations
+      document.getElementById('locationForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const query = document.getElementById('locationQuery').value;
+        const response = await fetch(`/api/locations?q=${encodeURIComponent(query)}`);
+        const locations = await response.json();
+        const locationResultsDiv = document.getElementById('locationResults');
+        if (locations.length === 0) {
+          locationResultsDiv.innerHTML = "<p>No locations found.</p>";
+        } else {
+          let html = "<ul>";
+          locations.forEach(loc => {
+            html += `<li><strong>${loc.name}</strong> - ${loc.address} (Rating: ${loc.rating || "N/A"})</li>`;
+          });
+          html += "</ul>";
+          locationResultsDiv.innerHTML = html;
+        }
+      });
+
+      // Load events on page load
+      loadEvents();
+    </script>
+  </body>
+</html>
