@@ -24,3 +24,10 @@ Paddle Up is a full-stack event scheduling platform for pickleball events in the
 3. **Install Dependencies:**
 
     pip install -r requirements.txt
+
+4. **Set Up Environment Variables:**
+
+Create a .env file in the project root with the following content:
+    GOOGLE_API_KEY=YOUR_GOOGLE_API_KEY
+    SECRET_KEY=YOUR_SECRET_KEY
+**Replace YOUR_GOOGLE_API_KEY and YOUR_SECRET_KEY with your actual keys.**
