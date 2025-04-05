@@ -13,8 +13,8 @@ Paddle Up is a full-stack event scheduling platform for pickleball events in the
 
 Clone the Repository:
 
-   git clone https://github.com/codedova/PaddleUp.git
-   cd PaddleUp
+    git clone https://github.com/codedova/PaddleUp.git
+    cd PaddleUp
 
 Create and Activate Environment:
 
