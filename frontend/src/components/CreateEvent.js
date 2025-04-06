@@ -1,5 +1,7 @@
+// src/components/CreateEvent.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import { TextField, Button, Container, Typography, Alert, Box } from '@mui/material';
 
 const CreateEvent = () => {
   const [title, setTitle] = useState('');
@@ -10,9 +12,8 @@ const CreateEvent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simple validation
     if (!title || !eventDate || !location) {
-      setMessage('Title, Event Date, and Location are required.');
+      setMessage("Title, Event Date, and Location are required.");
       return;
     }
     try {
@@ -26,57 +27,62 @@ const CreateEvent = () => {
       setDescription('');
       setEventDate('');
       setLocation('');
-    } catch (error) {
-      setMessage(error.response.data.error || 'Event creation failed.');
+    } catch (err) {
+      setMessage(err.response?.data?.error || 'Event creation failed.');
     }
   };
 
   return (
-    <div className="container mt-4">
-      <h2>Create Event</h2>
-      {message && <div className="alert alert-info">{message}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">Title:</label>
-          <input
-            type="text"
-            className="form-control"
+    <Container maxWidth="sm">
+      <Box sx={{ mt: 4 }}>
+        <Typography variant="h4" gutterBottom>
+          Create Event
+        </Typography>
+        {message && <Alert severity="info">{message}</Alert>}
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 2 }}>
+          <TextField
+            label="Title"
+            variant="outlined"
+            fullWidth
+            margin="normal"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
           />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Description:</label>
-          <textarea
-            className="form-control"
+          <TextField
+            label="Description"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            multiline
+            rows={3}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Event Date (MM-DD-YYYY HH:MM):</label>
-          <input
-            type="text"
-            className="form-control"
+          <TextField
+            label="Event Date (YYYY-MM-DD HH:MM)"
+            variant="outlined"
+            fullWidth
+            margin="normal"
             value={eventDate}
             onChange={(e) => setEventDate(e.target.value)}
             required
           />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Location:</label>
-          <input
-            type="text"
-            className="form-control"
+          <TextField
+            label="Location"
+            variant="outlined"
+            fullWidth
+            margin="normal"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             required
           />
-        </div>
-        <button type="submit" className="btn btn-success">Create Event</button>
-      </form>
-    </div>
+          <Button type="submit" variant="contained" color="success" fullWidth sx={{ mt: 2 }}>
+            Create Event
+          </Button>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 

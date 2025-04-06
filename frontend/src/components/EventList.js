@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Container, Typography, List, ListItem, ListItemText, Box } from '@mui/material';
 
 const EventList = () => {
   const [events, setEvents] = useState([]);
@@ -18,20 +19,27 @@ const EventList = () => {
   }, []);
 
   return (
-    <div className="container mt-4">
-      <h2>Events</h2>
-      {events.length === 0 ? (
-        <p>No events available.</p>
-      ) : (
-        <ul className="list-group">
-          {events.map(event => (
-            <li key={event.id} className="list-group-item">
-              <strong>{event.title}</strong> on {event.event_date} at {event.location}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <Container maxWidth="md">
+      <Box sx={{ mt: 4 }}>
+        <Typography variant="h4" gutterBottom>
+          Events
+        </Typography>
+        {events.length === 0 ? (
+          <Typography>No events available.</Typography>
+        ) : (
+          <List>
+            {events.map((event) => (
+              <ListItem key={event.id}>
+                <ListItemText
+                  primary={event.title}
+                  secondary={`${event.event_date} at ${event.location}`}
+                />
+              </ListItem>
+            ))}
+          </List>
+        )}
+      </Box>
+    </Container>
   );
 };
 

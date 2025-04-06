@@ -1,6 +1,6 @@
-// src/components/Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import { TextField, Button, Container, Typography, Alert, Box } from '@mui/material';
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
@@ -9,7 +9,6 @@ const Login = ({ onLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Log the credentials for debugging purposes
     console.log("Attempting login with:", { username, password });
     try {
       const response = await axios.post(
@@ -21,45 +20,47 @@ const Login = ({ onLogin }) => {
       onLogin(response.data.user);
     } catch (err) {
       console.error("Login error:", err);
-      // Check if the error response exists and use it, otherwise fallback to a generic message
       if (err.response && err.response.data && err.response.data.error) {
         setError(err.response.data.error);
-      } else if (err.message){
-        setError("Login failed: " + err.message);
       } else {
-        setError("Login failed due to nnknown error");
+        setError("Login failed: " + err.message);
       }
     }
   };
 
   return (
-    <div className="container mt-4">
-      <h2>Login</h2>
-      {error && <div className="alert alert-danger">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">Username:</label>
-          <input
-            type="text"
-            className="form-control"
+    <Container maxWidth="sm">
+      <Box sx={{ mt: 4 }}>
+        <Typography variant="h4" gutterBottom>
+          Login
+        </Typography>
+        {error && <Alert severity="error">{error}</Alert>}
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 2 }}>
+          <TextField
+            label="Username"
+            variant="outlined"
+            fullWidth
+            margin="normal"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Password:</label>
-          <input
+          <TextField
+            label="Password"
             type="password"
-            className="form-control"
+            variant="outlined"
+            fullWidth
+            margin="normal"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </div>
-        <button type="submit" className="btn btn-primary">Login</button>
-      </form>
-    </div>
+          <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+            Login
+          </Button>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 

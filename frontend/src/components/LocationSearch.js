@@ -1,5 +1,7 @@
+// src/components/LocationSearch.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import { TextField, Button, Container, Typography, Alert, List, ListItem, ListItemText, Box } from '@mui/material';
 
 const LocationSearch = () => {
   const [query, setQuery] = useState('');
@@ -18,30 +20,39 @@ const LocationSearch = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h2>Search for Pickleball Courts</h2>
-      <form onSubmit={handleSearch} className="mb-3">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Example: Pickleball"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          required
-        />
-        <button type="submit" className="btn btn-primary mt-2">Search</button>
-      </form>
-      {error && <div className="alert alert-danger">{error}</div>}
-      {locations.length > 0 && (
-        <ul className="list-group">
-          {locations.map(loc => (
-            <li key={loc.place_id} className="list-group-item">
-              <strong>{loc.name}</strong> - {loc.address} (Rating: {loc.rating || 'N/A'})
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <Container maxWidth="sm">
+      <Box sx={{ mt: 4 }}>
+        <Typography variant="h4" gutterBottom>
+          Search for Pickleball Courts
+        </Typography>
+        <Box component="form" onSubmit={handleSearch} sx={{ mt: 2 }}>
+          <TextField
+            label="Search Query"
+            variant="outlined"
+            fullWidth
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            required
+          />
+          <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+            Search
+          </Button>
+        </Box>
+        {error && <Alert severity="error" sx={{ mt: 2 }}>{error}</Alert>}
+        {locations.length > 0 && (
+          <List sx={{ mt: 2 }}>
+            {locations.map((loc) => (
+              <ListItem key={loc.place_id}>
+                <ListItemText
+                  primary={loc.name}
+                  secondary={`${loc.address} (Rating: ${loc.rating || 'N/A'})`}
+                />
+              </ListItem>
+            ))}
+          </List>
+        )}
+      </Box>
+    </Container>
   );
 };
 
