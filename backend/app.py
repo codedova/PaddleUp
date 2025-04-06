@@ -13,7 +13,7 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-key")
 
 app = Flask(__name__)
-CORS(app) # Enable CORS for all routes
+CORS(app, supports_credentials=True) # Enable CORS for all routes
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///events.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -99,7 +99,7 @@ def create_event():
         event = Event(
             title=data.get('title'),
             description=data.get('description'),
-            event_date=datetime.strptime(data.get('event_date'), '%Y-%m-%d %H:%M'),
+            event_date=datetime.strptime(data.get('event_date'), '%m-%d-%Y %H:%M'),
             location=data.get('location', 'Unknown')
         )
         db.session.add(event)

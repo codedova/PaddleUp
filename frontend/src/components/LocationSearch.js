@@ -24,7 +24,7 @@ const LocationSearch = () => {
         <input
           type="text"
           className="form-control"
-          placeholder="Enter search query"
+          placeholder="Example: Pickleball"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           required

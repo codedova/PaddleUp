@@ -24,8 +24,10 @@ const Login = ({ onLogin }) => {
       // Check if the error response exists and use it, otherwise fallback to a generic message
       if (err.response && err.response.data && err.response.data.error) {
         setError(err.response.data.error);
-      } else {
+      } else if (err.message){
         setError("Login failed: " + err.message);
+      } else {
+        setError("Login failed due to nnknown error");
       }
     }
   };
