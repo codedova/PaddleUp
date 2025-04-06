@@ -14,7 +14,7 @@ const CreateEvent = () => {
       const response = await axios.post(
         'http://127.0.0.1:5000/api/events',
         { title, description, event_date: eventDate, location },
-        { withCredentials: true } // ensures that cookies (session) are sent
+        { withCredentials: true } 
       );
       setMessage(response.data.message);
       setTitle('');
