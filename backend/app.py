@@ -143,17 +143,9 @@ def search_locations():
     
     return jsonify(parsed_results), 200
 
-###############################
-# Frontend Endpoint (Optional)
-###############################
-
 @app.route('/')
 def index():
     return render_template('index.html')
-
-###############################
-# Run the Application
-###############################
 
 if __name__ == '__main__':
     app.run(debug=True)
