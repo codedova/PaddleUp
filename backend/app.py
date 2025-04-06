@@ -5,6 +5,7 @@ from models import db, Event, User
 from datetime import datetime
 import requests
 from dotenv import load_dotenv
+from flask_cors import CORS
 
 # Load environment variables from the .env file
 load_dotenv()
@@ -12,6 +13,8 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-key")
 
 app = Flask(__name__)
+CORS(app)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///events.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
