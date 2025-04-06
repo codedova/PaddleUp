@@ -10,11 +10,16 @@ const CreateEvent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Simple validation
+    if (!title || !eventDate || !location) {
+      setMessage('Title, Event Date, and Location are required.');
+      return;
+    }
     try {
       const response = await axios.post(
         'http://127.0.0.1:5000/api/events',
         { title, description, event_date: eventDate, location },
-        { withCredentials: true } 
+        { withCredentials: true }
       );
       setMessage(response.data.message);
       setTitle('');
@@ -27,27 +32,49 @@ const CreateEvent = () => {
   };
 
   return (
-    <div>
+    <div className="container mt-4">
       <h2>Create Event</h2>
-      {message && <p>{message}</p>}
+      {message && <div className="alert alert-info">{message}</div>}
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Title: </label>
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+        <div className="mb-3">
+          <label className="form-label">Title:</label>
+          <input
+            type="text"
+            className="form-control"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
         </div>
-        <div>
-          <label>Description: </label>
-          <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+        <div className="mb-3">
+          <label className="form-label">Description:</label>
+          <textarea
+            className="form-control"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
         </div>
-        <div>
-          <label>Event Date (YYYY-MM-DD HH:MM): </label>
-          <input type="text" value={eventDate} onChange={(e) => setEventDate(e.target.value)} required />
+        <div className="mb-3">
+          <label className="form-label">Event Date (YYYY-MM-DD HH:MM):</label>
+          <input
+            type="text"
+            className="form-control"
+            value={eventDate}
+            onChange={(e) => setEventDate(e.target.value)}
+            required
+          />
         </div>
-        <div>
-          <label>Location: </label>
-          <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} required />
+        <div className="mb-3">
+          <label className="form-label">Location:</label>
+          <input
+            type="text"
+            className="form-control"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            required
+          />
         </div>
-        <button type="submit">Create Event</button>
+        <button type="submit" className="btn btn-success">Create Event</button>
       </form>
     </div>
   );

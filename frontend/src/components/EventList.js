@@ -18,14 +18,14 @@ const EventList = () => {
   }, []);
 
   return (
-    <div>
+    <div className="container mt-4">
       <h2>Events</h2>
       {events.length === 0 ? (
         <p>No events available.</p>
       ) : (
-        <ul>
+        <ul className="list-group">
           {events.map(event => (
-            <li key={event.id}>
+            <li key={event.id} className="list-group-item">
               <strong>{event.title}</strong> on {event.event_date} at {event.location}
             </li>
           ))}

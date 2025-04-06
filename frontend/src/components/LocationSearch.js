@@ -18,23 +18,24 @@ const LocationSearch = () => {
   };
 
   return (
-    <div>
+    <div className="container mt-4">
       <h2>Search for Pickleball Courts</h2>
-      <form onSubmit={handleSearch}>
+      <form onSubmit={handleSearch} className="mb-3">
         <input
           type="text"
+          className="form-control"
           placeholder="Enter search query"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           required
         />
-        <button type="submit">Search</button>
+        <button type="submit" className="btn btn-primary mt-2">Search</button>
       </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {error && <div className="alert alert-danger">{error}</div>}
       {locations.length > 0 && (
-        <ul>
+        <ul className="list-group">
           {locations.map(loc => (
-            <li key={loc.place_id}>
+            <li key={loc.place_id} className="list-group-item">
               <strong>{loc.name}</strong> - {loc.address} (Rating: {loc.rating || 'N/A'})
             </li>
           ))}
