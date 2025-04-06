@@ -39,6 +39,6 @@ class Event(db.Model):
             "id": self.id,
             "title": self.title,
             "description": self.description,
-            "event_date": self.event_date.strftime('%Y-%m-%d %H:%M'),
+            "event_date": self.event_date.strftime('%m-%d-%Y %H:%M'),
             "location": self.location
         }
