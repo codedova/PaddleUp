@@ -13,7 +13,7 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret-key")
 
 app = Flask(__name__)
-CORS(app)
+CORS(app) # Enable CORS for all routes
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///events.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -85,9 +85,6 @@ def login():
 def logout():
     logout_user()
     return jsonify({"message": "Logged out successfully"}), 200
-
-if user is None or not user.check_password(password):
-    return jsonify({"error": "Invalid username or password"}), 400
 
 
 ###############################
