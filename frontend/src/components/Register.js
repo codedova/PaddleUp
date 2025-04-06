@@ -8,17 +8,16 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!username || !password) {
-      setMessage("Username and password are required.");
-      return;
-    }
     try {
       const response = await axios.post('http://127.0.0.1:5000/api/register', { username, password });
       setMessage(response.data.message);
-      setUsername('');
-      setPassword('');
-    } catch (error) {
-      setMessage(error.response.data.error || 'Registration failed.');
+    } catch (err) {
+      // Check if the error response exists before trying to access it
+      if (err.response && err.response.data && err.response.data.error) {
+        setMessage(err.response.data.error);
+      } else {
+        setMessage('Registration failed: ' + err.message);
+      }
     }
   };
 

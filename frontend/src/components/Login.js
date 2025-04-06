@@ -1,3 +1,4 @@
+// src/components/Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -8,19 +9,24 @@ const Login = ({ onLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!username || !password) {
-      setError('Please enter both username and password.');
-      return;
-    }
+    // Log the credentials for debugging purposes
+    console.log("Attempting login with:", { username, password });
     try {
       const response = await axios.post(
         'http://127.0.0.1:5000/api/login',
         { username, password },
         { withCredentials: true }
       );
+      console.log("Login successful:", response.data);
       onLogin(response.data.user);
     } catch (err) {
-      setError('Invalid credentials. Please try again.');
+      console.error("Login error:", err);
+      // Check if the error response exists and use it, otherwise fallback to a generic message
+      if (err.response && err.response.data && err.response.data.error) {
+        setError(err.response.data.error);
+      } else {
+        setError("Login failed: " + err.message);
+      }
     }
   };
 

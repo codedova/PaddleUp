@@ -55,7 +55,7 @@ const CreateEvent = () => {
           />
         </div>
         <div className="mb-3">
-          <label className="form-label">Event Date (YYYY-MM-DD HH:MM):</label>
+          <label className="form-label">Event Date (MM-DD-YYYY HH:MM):</label>
           <input
             type="text"
             className="form-control"

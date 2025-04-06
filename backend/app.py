@@ -66,6 +66,7 @@ def register():
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
+    print("Recieved login data:", data) # Temp Logging for debugging
     username = data.get('username')
     password = data.get('password')
     
@@ -84,6 +85,10 @@ def login():
 def logout():
     logout_user()
     return jsonify({"message": "Logged out successfully"}), 200
+
+if user is None or not user.check_password(password):
+    return jsonify({"error": "Invalid username or password"}), 400
+
 
 ###############################
 # Event Scheduling Endpoints
