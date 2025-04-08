@@ -19,8 +19,18 @@ const EventList = () => {
   }, []);
 
   return (
-    <Container maxWidth="md">
-      <Box sx={{ mt: 4 }}>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        backgroundImage: 'url(/events-bg.png)',
+        backgroundSize: 'contain',
+        backgroundRepeat: 'repeat',
+        backgroundPosition: 'center',
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
+      <Container maxWidth="md" sx={{ backgroundColor: 'rgba(255,255,255,0.85)', padding: 4, borderRadius: 2 }}>
         <Typography variant="h4" gutterBottom>
           Events
         </Typography>
@@ -38,8 +48,8 @@ const EventList = () => {
             ))}
           </List>
         )}
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 };
 

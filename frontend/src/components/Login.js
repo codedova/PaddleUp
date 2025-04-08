@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { TextField, Button, Container, Typography, Alert, Box } from '@mui/material';
+import { Container, TextField, Button, Typography, Alert, Box } from '@mui/material';
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
@@ -9,17 +9,14 @@ const Login = ({ onLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Attempting login with:", { username, password });
     try {
       const response = await axios.post(
-        'http://127.0.0.1:5000/api/login',
+        'http://localhost:5000/api/login',
         { username, password },
         { withCredentials: true }
       );
-      console.log("Login successful:", response.data);
       onLogin(response.data.user);
     } catch (err) {
-      console.error("Login error:", err);
       if (err.response && err.response.data && err.response.data.error) {
         setError(err.response.data.error);
       } else {
@@ -29,8 +26,19 @@ const Login = ({ onLogin }) => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ mt: 4 }}>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        backgroundImage: 'url(/login-bg.png)',
+        backgroundSize: 'contain',
+        backgroundRepeat: 'repeat',
+        backgroundPosition: 'center',
+        display: 'flex',
+        alignItems: 'center',
+      }}
+
+    >
+      <Container maxWidth="sm" sx={{ backgroundColor: 'rgba(255,255,255,0.8)', padding: 4, borderRadius: 2 }}>
         <Typography variant="h4" gutterBottom>
           Login
         </Typography>
@@ -59,8 +67,8 @@ const Login = ({ onLogin }) => {
             Login
           </Button>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 };
 

@@ -1,4 +1,3 @@
-// src/components/CreateEvent.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { TextField, Button, Container, Typography, Alert, Box } from '@mui/material';
@@ -16,25 +15,42 @@ const CreateEvent = () => {
       setMessage("Title, Event Date, and Location are required.");
       return;
     }
+    
+    // Log the payload for debugging:
+    const payload = { title, description, event_date: eventDate, location };
+    console.log("Payload to send:", payload);
+
     try {
       const response = await axios.post(
-        'http://127.0.0.1:5000/api/events',
-        { title, description, event_date: eventDate, location },
+        'http://localhost:5000/api/events', payload, 
         { withCredentials: true }
       );
-      setMessage(response.data.message);
+      console.log("Create event response:", response.data);
+      setMessage(response.data.message || "Event created successfully");
       setTitle('');
       setDescription('');
       setEventDate('');
       setLocation('');
     } catch (err) {
+      console.error("Error during event creation:", err);
+      console.error("Error details:", err);
       setMessage(err.response?.data?.error || 'Event creation failed.');
     }
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ mt: 4 }}>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        backgroundImage: 'url(/create-bg.png)',
+        backgroundSize: 'contain',
+        backgroundRepeat: 'repeat',
+        backgroundPosition: 'center',
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
+      <Container maxWidth="sm" sx={{ backgroundColor: 'rgba(255,255,255,0.85)', padding: 4, borderRadius: 2 }}>
         <Typography variant="h4" gutterBottom>
           Create Event
         </Typography>
@@ -60,7 +76,7 @@ const CreateEvent = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
           <TextField
-            label="Event Date (YYYY-MM-DD HH:MM)"
+            label="Event Date (MM-DD-YYYY HH:MM)"
             variant="outlined"
             fullWidth
             margin="normal"
@@ -81,8 +97,8 @@ const CreateEvent = () => {
             Create Event
           </Button>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 };
 

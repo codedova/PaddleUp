@@ -1,7 +1,6 @@
-// src/components/LocationSearch.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { TextField, Button, Container, Typography, Alert, List, ListItem, ListItemText, Box } from '@mui/material';
+import { Container, TextField, Button, Typography, Alert, List, ListItem, ListItemText, Box } from '@mui/material';
 
 const LocationSearch = () => {
   const [query, setQuery] = useState('');
@@ -20,8 +19,18 @@ const LocationSearch = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ mt: 4 }}>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        backgroundImage: 'url(/locations-bg.png)',
+        backgroundSize: 'contain',
+        backgroundRepeat: 'repeat',
+        backgroundPosition: 'center',
+        display: 'flex',
+        alignItems: 'center',
+      }}
+    >
+      <Container maxWidth="sm" sx={{ backgroundColor: 'rgba(255,255,255,0.85)', padding: 4, borderRadius: 2 }}>
         <Typography variant="h4" gutterBottom>
           Search for Pickleball Courts
         </Typography>
@@ -51,8 +60,8 @@ const LocationSearch = () => {
             ))}
           </List>
         )}
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 };
 

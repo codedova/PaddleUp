@@ -21,6 +21,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Set the secret key for sessions
 app.config['SECRET_KEY'] = SECRET_KEY
 
+
+# Configure session cookie settings for cross-origin requests
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+app.config['SESSION_COOKIE_SECURE'] = False 
+
 # Initialize the database
 db.init_app(app)
 
@@ -106,6 +111,7 @@ def create_event():
         db.session.commit()
         return jsonify({"message": "Event created successfully", "event": event.to_dict()}), 201
     except Exception as e:
+        print("Error creating event: ", e)
         return jsonify({"error": str(e)}), 400
 
 @app.route('/api/events', methods=['GET'])
@@ -150,4 +156,4 @@ def index():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="localhost")
