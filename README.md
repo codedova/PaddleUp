@@ -34,11 +34,13 @@ Prerequisites
 - Node.js and npm
 
 Clone the Repository
+
         git clone https://github.com/codedova/PaddleUp.git
         cd PaddleUp
 
 ## Backend Setup
 - Create a Virtual Environment:
+
         python3 -m venv venv
 
 Activate the Virtual Environment:
