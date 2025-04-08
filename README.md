@@ -111,8 +111,6 @@ Search Locations:
 
 - Deploy the application with Docker to a cloud platform for a live demo.
 
-## License
-This project is licensed under the MIT License.
 
 
 
