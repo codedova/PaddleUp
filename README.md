@@ -44,37 +44,45 @@ Clone the Repository
         python3 -m venv venv
 
 Activate the Virtual Environment:
+
         source venv/bin/activate <--- macOS
         venv\Scripts\activate <--- windows
 
 Install Dependencies:
 - Navigate to the backend folder and install the required packages: 
+
         cd backend
         pip install -r requirements.txt
 
 Configure Environment Variables:
 - Create a .env file in the backend folder with the following content:
+
         GOOGLE_API_KEY=your_google_api_key_here
         SECRET_KEY=your_secret_key_here
 
 Set Additional Flask Configurations:
 - In app.py, ensure you have the following configurations (placed after setting the secret key):
+
         app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
         app.config['SESSION_COOKIE_SECURE'] = False  
 
 Run the Flask Backend:
+
         python app.py
 
 
 ## Frontend Setup 
 
 Navigate to the Frontend Folder:
+
         cd ../frontend
 
 Install Frontend Dependencies:
+
         npm install
 
 Start the React Development Server:
+
         npm start
 
 
